@@ -9,6 +9,8 @@ ENV NC_DIR_BIN="${NC_DIR}/bin"
 ENV NC_DIR_SYNC="${NC_DIR}/mnt"
 ENV NC_DIR_CONF="${NC_DIR}/cfg"
 ENV NC_PARAMS=""
+ENV UID=99
+ENV GID=100
 
 RUN apt update \ 
  && apt install -y --no-install-recommends --no-install-suggests \
@@ -18,9 +20,9 @@ RUN apt update \
  && apt install -y --no-install-recommends --no-install-suggests \
 		nextcloud-desktop-cmd
 
-ADD nc_sync.sh ${NC_DIR_BIN}/nc_sync.sh
-RUN mkdir -p /root/.local/share/nextcloudcmd \
- && mkdir -p $NC_DIR_CONF \
+RUN mkdir -p $NC_DIR_CONF \
  && mkdir $NC_DIR_SYNC
 
-ENTRYPOINT ${NC_DIR_BIN}/nc_sync.sh
+ADD nc_sync.sh ${NC_DIR_BIN}/nc_sync.sh
+ADD entrypoint.sh /entrypoint.sh
+ENTRYPOINT /entrypoint.sh
