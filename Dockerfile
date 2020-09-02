@@ -21,9 +21,7 @@ RUN apt update \
  && apt install -y --no-install-recommends --no-install-suggests \
 		nextcloud-desktop-cmd
 
-RUN mkdir -p /root/.local/share/nextcloudcmd \
- && mkdir -p /home/nextcloud/.local/share/nextcloudcmd \
- && mkdir -p $NC_DIR_CONF \
+RUN mkdir -p $NC_DIR_CONF \
  && mkdir $NC_DIR_SYNC
 
 ADD nc_sync.sh ${NC_DIR_BIN}/nc_sync.sh
